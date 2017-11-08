@@ -1,7 +1,15 @@
 document.addEventListener("DOMContentLoaded", function() {
-    var clientID = "l474jl9t8k6vb1cyvtmlljrn90i7r7";
-    var clientSecret = "1otcv927vx32p06bse3mznppnbi4nj";
-    var streams = [
+
+	var outputWrapper=document.querySelector(".js-twitch-output"),
+			triggers=document.querySelectorAll(".js-filter-status");
+
+console.log(triggers);
+
+
+	var requestData = {
+     clientID : "l474jl9t8k6vb1cyvtmlljrn90i7r7",
+     clientSecret : "1otcv927vx32p06bse3mznppnbi4nj",
+     queries : [
         "ESL_SC2",
         "OgamingSC2",
         "cretetion",
@@ -10,29 +18,67 @@ document.addEventListener("DOMContentLoaded", function() {
         "habathcx",
         "RobotCaleb",
         "noobs2ninjas"
-    ];
+    ],
+     API:  "https://api.twitch.tv/kraken/search/streams"
+
+	}
 
 
 
 var channelsData=new Array;
 
+requestData.queries.forEach(function (el) {
 
-streams.forEach(function (el) {
-return	sendRequest(el);
+return	sendRequest(el,channelsData,requestData);
+
+});
+
+// console.log(channelsData);
+
+
+
+
+
+triggers.forEach(function(el) {
+
+el.addEventListener('click', function(event) {
+
+console.log(event.currentTarget.getAttribute('data-filter-status'));
+
+switch (event.currentTarget.getAttribute('data-filter-status')) {
+
+		case 'online':
+		showOnline(outputWrapper,channelsData);
+		break;
+		case 'offline':
+		showOffline(outputWrapper,channelsData);
+		break;
+	default:
+		showAll(outputWrapper,channelsData);
+		break;
+}
 
 })
 
-
-
-function sendRequest(streamChannel) {
-
+});
 
 
 
 
-    var url = " https://api.twitch.tv/kraken/search/streams/?query=" + streamChannel + "&client_id=" + clientID +
-        "&client_secret" + clientSecret + "?callback=?";
 
+
+});
+
+
+
+// ====================================
+// send rquest
+
+
+function sendRequest(streamChannel, responseArray, requestParams) {
+		var  arrayOfResponses=responseArray;
+    var url = requestParams.API + "/?query=" + streamChannel + "&client_id=" + requestParams.clientID +
+        "&client_secret" + requestParams.clientSecret + "?callback=?";
 
     function createCORSRequest(method, url) {
         var xhr = new XMLHttpRequest();
@@ -66,8 +112,8 @@ function sendRequest(streamChannel) {
     xhr.onload = function() {
         var text = xhr.responseText;
         var parsedJSON = JSON.parse(text);
-        console.log(parsedJSON);
-        fillResponseArray(parsedJSON);
+        // console.log(parsedJSON);
+        fillResponseArray(parsedJSON,arrayOfResponses);
 
     };
 
@@ -77,28 +123,28 @@ function sendRequest(streamChannel) {
     };
 
     xhr.send();
-
-
-
 }
 
 
+function fillResponseArray(object,array) {
 
+let el=object;
 
+array.push(el);
 
-function fillResponseArray(parsedJSON) {
-
-
-let singeChannelData=parsedJSON;
-console.log(singeChannelData);
-channelsData.push(singeChannelData);
-return channelsData;
+return array;
 }
 
-console.log(channelsData);
+
+function 	showOnline(output,data) {
 
 
-});
+let outputHTML='<div class="output-wrapper__item"><div class="stream">'+
+	'<a href="" class="stream__link">'+
+	'<div class="stream__img" style="background-image: ; background-size: cover"></div>'+
+	'<h3 class="stream__heading"></h3></a></div></div>';
 
 
+output.html=outputHTML;
 
+}
