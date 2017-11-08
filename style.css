@@ -1,0 +1,25 @@
+
+.output-wrapper {
+	max-width: 800px;
+	min-height: 500px;
+	width: 100%;
+	margin: 100px auto;
+	border-radius: 5px;
+	border: 1px solid #333;
+}
+
+.controll-set {
+	max-width: 500px;
+	margin: 0px auto;
+	text-align: center;
+}
+
+.controll-set__button {
+	display: inline-block;	
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    color: #333
+}
+
+
