@@ -49,11 +49,11 @@
 }
 
 .stream_online {
-	background-color: green;
+	background-color: #43793B;
 }
 
 .stream_offline {
-	background-color: red;
+	background-color: tomato;
 }
 
 .stream__img {

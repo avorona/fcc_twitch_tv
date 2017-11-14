@@ -43,20 +43,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     });
 
-  console.log(channelsData);
-  let filter =  channelsData.map(function (e) {
-  	e.channels.filter(function (elem) {
-  		
-  		if (elem.display_name===requestData.queries)
-  		
-
-  	})
-  })
-    // console.log(channelsData);
-
-
-
-
 
     triggers.forEach(function(el) {
 
@@ -80,11 +66,6 @@ document.addEventListener("DOMContentLoaded", function() {
         })
 
     });
-
-
-
-
-
 
 });
 
@@ -164,13 +145,13 @@ function fillResponseArray(object, array) {
 
 function filterAll(output, data) {
 
-let streamChannel = [];
+    let streamChannel = [];
 
     data.forEach(function(el) {
 
         el.channels.forEach(function(element, index) {
 
-                streamChannel.push(element);
+            streamChannel.push(element);
 
         });
 
@@ -235,26 +216,12 @@ function filterOffline(output, data) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 function HTMLToDOM(output, stream, status) {
 
 
     output.innerHTML = " ";
 
 
-    // console.log(stream);
-    // console.log(stream);
 
     if (status === "online") {
 
@@ -284,61 +251,52 @@ function HTMLToDOM(output, stream, status) {
 
         stream.forEach(function(el) {
 
-                let outputBox = document.createElement('div');
-                outputBox.className += ('output-wrapper__item');
+            let outputBox = document.createElement('div');
+            outputBox.className += ('output-wrapper__item');
 
 
-                outputBox.innerHTML = '<div class="stream stream_offline">' +
-                    '<a href="' + el.url + '" class="stream__link">' +
-                    '<div class="stream__left"> <div class="stream__img" style="background-image:url('+el.logo+'); background-size: cover"></div></div>' +
-                    '<div class="stream__right"><h3 class="stream__heading">' + el.display_name + '</h3>' +
-                    '</div></a></div>';
-
-
-
-                output.append(outputBox);
-
-
-            });
-
-        } else if (status==="all") {
-
-        	      stream.forEach(function(el) {
-
-        	      	let statusClass="";
-
-        	      	if(el.status==="") {
-        	      		statusClass="offline"
-
-        	      	} else {
-        	      		statusClass="online"
-        	      	}
-
-                let outputBox = document.createElement('div');
-                outputBox.className += ('output-wrapper__item');
-
-
-                outputBox.innerHTML = '<div class="stream stream_'+statusClass+'">' +
-                    '<a href="' + el.url + '" class="stream__link">' +
-                    '<div class="stream__left"> <div class="stream__img" style="background-image:url('+el.logo+'); background-size: cover"></div></div>' +
-                    '<div class="stream__right"><h3 class="stream__heading">' + el.display_name + '</h3>' +
-                    '</div></a></div>';
+            outputBox.innerHTML = '<div class="stream stream_offline">' +
+                '<a href="' + el.url + '" class="stream__link">' +
+                '<div class="stream__left"> <div class="stream__img" style="background-image:url(' + el.logo + '); background-size: cover"></div></div>' +
+                '<div class="stream__right"><h3 class="stream__heading">' + el.display_name + '</h3>' +
+                '</div></a></div>';
 
 
 
-                output.append(outputBox);
+            output.append(outputBox);
 
 
-            });
-        }
-         else  {
+        });
 
-            alert('Give me some stuff, hey!');
-        }
-        
+    } else if (status === "all") {
+
+        stream.forEach(function(el) {
+
+            let statusClass = "";
+
+            if (el.status === "") {
+                statusClass = "offline"
+
+            } else {
+                statusClass = "online"
+            }
+
+            let outputBox = document.createElement('div');
+            outputBox.className += ('output-wrapper__item');
 
 
+            outputBox.innerHTML = '<div class="stream stream_' + statusClass + '">' +
+                '<a href="' + el.url + '" class="stream__link">' +
+                '<div class="stream__left"> <div class="stream__img" style="background-image:url(' + el.logo + '); background-size: cover"></div></div>' +
+                '<div class="stream__right"><h3 class="stream__heading">' + el.display_name + '</h3>' +
+                '</div></a></div>';
 
+            output.append(outputBox);
 
+        });
+    } else {
 
+        alert('Give me some stuff, hey!');
     }
+
+}
