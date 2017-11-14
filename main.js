@@ -42,6 +42,16 @@ document.addEventListener("DOMContentLoaded", function() {
         return sendRequest(el, streamsData, requestData);
 
     });
+
+  console.log(channelsData);
+  let filter =  channelsData.map(function (e) {
+  	e.channels.filter(function (elem) {
+  		
+  		if (elem.display_name===requestData.queries)
+  		
+
+  	})
+  })
     // console.log(channelsData);
 
 
@@ -243,7 +253,7 @@ function HTMLToDOM(output, stream, status) {
     output.innerHTML = " ";
 
 
-    console.log(stream);
+    // console.log(stream);
     // console.log(stream);
 
     if (status === "online") {
@@ -280,7 +290,7 @@ function HTMLToDOM(output, stream, status) {
 
                 outputBox.innerHTML = '<div class="stream stream_offline">' +
                     '<a href="' + el.url + '" class="stream__link">' +
-                    '<div class="stream__left"> <div class="stream__img" style="background-image: url(http://fillmurray.com/150/150); background-size: cover"></div></div>' +
+                    '<div class="stream__left"> <div class="stream__img" style="background-image:url('+el.logo+'); background-size: cover"></div></div>' +
                     '<div class="stream__right"><h3 class="stream__heading">' + el.display_name + '</h3>' +
                     '</div></a></div>';
 
@@ -310,7 +320,7 @@ function HTMLToDOM(output, stream, status) {
 
                 outputBox.innerHTML = '<div class="stream stream_'+statusClass+'">' +
                     '<a href="' + el.url + '" class="stream__link">' +
-                    '<div class="stream__left"> <div class="stream__img" style="background-image: url(http://fillmurray.com/150/150); background-size: cover"></div></div>' +
+                    '<div class="stream__left"> <div class="stream__img" style="background-image:url('+el.logo+'); background-size: cover"></div></div>' +
                     '<div class="stream__right"><h3 class="stream__heading">' + el.display_name + '</h3>' +
                     '</div></a></div>';
 
